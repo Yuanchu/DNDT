@@ -3,12 +3,9 @@ import tensorflow as tf
 import iris
 import matplotlib.pyplot as plt
 from neural_network_decision_tree import *
-from car import *
 
 np.random.seed(1943)
 tf.set_random_seed(1943)
-
-# x, y = get_car()
 
 # Input data
 x = iris.feature[:, :]
@@ -25,6 +22,7 @@ train_prob = 1.0
 test_prob = 1.0
 use_rotate = True
 use_cnn = False
+k = 3
 
 # Training params
 batch_size = 25
@@ -32,7 +30,8 @@ run = int(10e3)
 
 args = {"use_rotate": use_rotate,
         "rotate_size": rotate_size,
-        "use_cnn": use_cnn}
+        "use_cnn": use_cnn,
+        "k": k}
 
 # Define the session
 sess = tf.InteractiveSession()
