@@ -1,8 +1,9 @@
-# Implementation of DNDT (TensorFlow and PyTorch)
+# EECSE 6699 Final Project 
+# Yuanchu Dang, Zizhang Hu, Barbara Zhan
 
 Deep Neural Decision Trees
 
-Yongxin Yang, Irene Garcia Morillo, Timothy M. Hospedales
+Built on previous work by Yongxin Yang, Irene Garcia Morillo, Timothy M. Hospedales
 
 ICML Workshop on Human Interpretability in Machine Learning (WHI 2018)
 
