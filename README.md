@@ -1,5 +1,7 @@
-# EECSE 6699 Final Project 
-# Yuanchu Dang, Zizhang Hu, Barbara Zhan
+## Mathematics of Deep Learning
+
+### Yuanchu Dang, Z Hu, Barbara Zhan
+2019, Spring
 
 Deep Neural Decision Trees
 
