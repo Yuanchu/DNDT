@@ -2,7 +2,8 @@ import tensorflow as tf
 from functools import reduce
 import numpy as np
 
-def get_model(model_name, d, cut, num_class, learn_rate,  args):
+
+def get_model(model_name, d, cut, num_class, learn_rate, args):
 
     # Model has to be "old" or "new"
     if model_name not in ['old', 'new']:
@@ -65,23 +66,23 @@ def tf_kron_prod(a, b):
     return res
 
 
-def tf_bin(x, cut_points, hidden = 2, temperature=0.1):
+def tf_bin(x, cut_points, hidden = 2, temperature = 0.1):
     """
     x is a N-by-1 matrix (column vector)
     cut_points is a D-dim vector (D is the number of cut-points)
-    this function produces a N-by-(D+1) matrix, each row has only one element being one and the rest are all zeros
+    this function produces a N-by-(D + 1) matrix, each row has only one element being one and the rest are all zeros
     """
     D = cut_points.get_shape().as_list()[0]
     W = tf.reshape(tf.linspace(1.0, D + 1.0, D + 1), [1, -1])
     cut_points = tf.contrib.framework.sort(cut_points)  # make sure cut_points is monotonically increasing
-    b = tf.cumsum(tf.concat([tf.constant(0.0, shape=[1]), -cut_points], 0))
+    b = tf.cumsum(tf.concat([tf.constant(0.0, shape = [1]), -cut_points], 0))
     h = tf.matmul(x, W) + b
 
     res = tf.nn.softmax(h / temperature)
     return res
 
 
-def nn_decision_tree_old(x, cut_points_list, leaf_score, keep_prob, temperature=0.1):
+def nn_decision_tree_old(x, cut_points_list, leaf_score, keep_prob, temperature = 0.1):
     # cut_points_list contains the cut_points for each dimension of feature
     binnings = list(map(lambda z: tf_bin(x[:, z[0]:z[0] + 1], z[1], temperature = temperature), enumerate(cut_points_list)))
     leaf = reduce(tf_kron_prod, binnings)
@@ -101,7 +102,7 @@ def nn_decision_tree(x, cut_points_list, leaf_score, keep_prob, model_name, args
             k = args.get("k", 3)
             d = x.shape[1]
             reshaped = tf.reshape(x, [-1, 1, d])
-            conv1 = tf.layers.conv1d(inputs=reshaped, filters=k, kernel_size=2, padding="same", activation=tf.nn.softmax)
+            conv1 = tf.layers.conv1d(inputs = reshaped, filters = k, kernel_size = 2, padding = "same", activation = tf.nn.softmax)
             binning_input = tf.reshape(conv1, [-1, k])
         else:
             binning_input = x
